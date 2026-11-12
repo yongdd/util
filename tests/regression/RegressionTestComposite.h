@@ -13,6 +13,7 @@
 #include "CoreRationalTest.h"
 #include "CoreAutoCorrTest.h"
 #include "CoreDistributionTest.h"
+#include "CoreRandomTest.h"
 
 TEST_COMPOSITE_BEGIN(RegressionTestComposite)
 TEST_COMPOSITE_ADD_UNIT(CoreAverageTest);
@@ -21,6 +22,7 @@ TEST_COMPOSITE_ADD_UNIT(CoreAverageVarianceTest);
 TEST_COMPOSITE_ADD_UNIT(CoreRationalTest);
 TEST_COMPOSITE_ADD_UNIT(CoreAutoCorrTest);
 TEST_COMPOSITE_ADD_UNIT(CoreDistributionTest);
+TEST_COMPOSITE_ADD_UNIT(CoreRandomTest);
 TEST_COMPOSITE_END
 
 #endif
