@@ -11,12 +11,16 @@
 #include "CoreDSymmMatrixParamTest.h"
 #include "CoreAverageVarianceTest.h"
 #include "CoreRationalTest.h"
+#include "CoreAutoCorrTest.h"
+#include "CoreDistributionTest.h"
 
 TEST_COMPOSITE_BEGIN(RegressionTestComposite)
 TEST_COMPOSITE_ADD_UNIT(CoreAverageTest);
 TEST_COMPOSITE_ADD_UNIT(CoreDSymmMatrixParamTest);
 TEST_COMPOSITE_ADD_UNIT(CoreAverageVarianceTest);
 TEST_COMPOSITE_ADD_UNIT(CoreRationalTest);
+TEST_COMPOSITE_ADD_UNIT(CoreAutoCorrTest);
+TEST_COMPOSITE_ADD_UNIT(CoreDistributionTest);
 TEST_COMPOSITE_END
 
 #endif
