@@ -5,7 +5,7 @@ include $(SRC_DIR)/util/patterns.mk
 include $(SRC_DIR)/util/sources.mk
 
 TEST_DIR=$(BLD_DIR)/util/tests/param/serial
-include $(TEST_DIR)/sources.mk
+include $(SRC_DIR)/util/tests/param/serial/sources.mk
 
 TEST=$(TEST_DIR)/Test
 .SECONDARY: $(TEST).o
@@ -23,7 +23,7 @@ clean:
 	$(MAKE) clean-outputs
 
 clean-outputs:
-	@rm -f $(TEST_DIR)/out/*
+	@rm -f $(SRC_DIR)/util/tests/param/serial/out/*
 
 -include $(util_tests_param_serial_OBJS:.o=.d)
 -include $(util_DEPS)
