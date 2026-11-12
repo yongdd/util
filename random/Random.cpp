@@ -13,7 +13,9 @@ namespace Util
    Random::Random()
     : engine_(),
       seed_(0),
-      isInitialized_(false)
+      isInitialized_(false),
+      hasGaussian_(false),
+      gaussian_(0.0)
    {  setClassName("Random"); }
 
    /*
@@ -38,6 +40,8 @@ namespace Util
    {
       loadParameter<SeedType>(ar, "seed", seed_);
       ar >> engine_;
+      ar >> hasGaussian_;
+      ar >> gaussian_;
    }
 
    /*
@@ -47,6 +51,8 @@ namespace Util
    {
       ar << seed_;
       ar << engine_;
+      ar << hasGaussian_;
+      ar << gaussian_;
    }
 
    /*
@@ -66,6 +72,7 @@ namespace Util
    */
    void Random::setSeed()
    {
+      hasGaussian_ = false;
       // If seed  == 0, replace with random seed from clock.
       if (seed_ == 0) {
          SeedType temp;
@@ -91,11 +98,11 @@ namespace Util
    */
    double Random::gaussian(void)
    {
-      static bool   iset = false;
-      static double zGauss1;
+      // The second deviate of a pair is kept in members (not in static
+      // variables shared by all objects), and is discarded by setSeed()
       double zGauss2;
 
-      if (iset == false) {
+      if (hasGaussian_ == false) {
          double v1;
          double v2;
          double rsq=2.0;
@@ -106,12 +113,12 @@ namespace Util
             rsq = v1*v1 + v2*v2;
          }
          double fac = sqrt(-2.0*log(rsq)/rsq);
-         zGauss1 = v1*fac;
+         gaussian_ = v1*fac;
          zGauss2 = v2*fac;
-         iset = true;
+         hasGaussian_ = true;
       } else {
-         zGauss2 = zGauss1;
-         iset = false;
+         zGauss2 = gaussian_;
+         hasGaussian_ = false;
       }
       return zGauss2;
    }

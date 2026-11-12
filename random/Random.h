@@ -187,6 +187,12 @@ namespace Util
 
       /// Has a seed been set by readParam() or setSeed()?
       bool isInitialized_;
+
+      /// Is a second Gaussian deviate stored in gaussian_?
+      bool hasGaussian_;
+
+      /// Second Gaussian deviate of the last pair (see gaussian()).
+      double gaussian_;
    
       /**
       * Initialize random number generator.
@@ -286,6 +292,8 @@ namespace Util
    {
       ar & engine_;
       ar & seed_;
+      ar & hasGaussian_;
+      ar & gaussian_;
    }
 
 } 
