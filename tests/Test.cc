@@ -18,6 +18,7 @@
 #include "signal/SignalTest.h"
 #include "space/SpaceTestComposite.h"
 #include "misc/MiscTestComposite.h"
+#include "regression/RegressionTestComposite.h"
 
 #ifdef  UTIL_MPI
 #include "param/mpi/MpiParamTestComposite.h"
@@ -39,6 +40,7 @@ addChild(new AccumulatorTestComposite, "accumulators/unit/");
 addChild(new TEST_RUNNER(RandomTest), "random/");
 addChild(new TEST_RUNNER(SignalTest), "signal/");
 addChild(new MiscTestComposite, "misc/");
+addChild(new RegressionTestComposite, "regression/");
 #ifdef UTIL_MPI
 //addChild(new MpiParamTestComposite, "param/mpi/");
 //addChild(new TEST_RUNNER(MpiSendRecvTest), "mpi/");
