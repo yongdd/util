@@ -169,10 +169,13 @@ namespace Util
 
       // Private member variables
 
-      /// Sum of all sampled values.
+      /// First sampled value, subtracted before the sums are taken.
+      double shift_;
+
+      /// Sum of all sampled values minus shift_.
       double sum_;
 
-      /// Sum of squares of all sampled values.
+      /// Sum of squares of all sampled values minus shift_.
       double sumSq_;
 
       /// Sum of sampled values in the current block.
@@ -255,6 +258,7 @@ namespace Util
    template <class Archive>
    void AverageStage::serialize(Archive& ar, const unsigned int version)
    {
+      ar & shift_;
       ar & sum_;
       ar & sumSq_;
       ar & blockSum_;
