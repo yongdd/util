@@ -12,6 +12,7 @@
 #include "MemoryTest.h"
 #include "ReferenceCountTest.h"
 #include "TimerTest.h"
+#include "OffsetTest.h"
 
 TEST_COMPOSITE_BEGIN(MiscTestComposite)
 TEST_COMPOSITE_ADD_UNIT(ExceptionTest);
@@ -23,6 +24,7 @@ TEST_COMPOSITE_ADD_UNIT(XmlTest);
 TEST_COMPOSITE_ADD_UNIT(MemoryTest);
 TEST_COMPOSITE_ADD_UNIT(ReferenceCountTest);
 TEST_COMPOSITE_ADD_UNIT(TimerTest);
+TEST_COMPOSITE_ADD_UNIT(OffsetTest);
 TEST_COMPOSITE_END
 
 #endif
