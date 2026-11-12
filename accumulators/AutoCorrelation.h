@@ -65,7 +65,11 @@ namespace Util
 
       using AutoCorrStage<Data, Product>::setParam;
       using AutoCorrStage<Data, Product>::sample;
-      using AutoCorrStage<Data, Product>::clear;
+      /**
+      * Clear accumulators and destroy descendants.
+      */
+      void clear();
+
       using AutoCorrStage<Data, Product>::serialize;
       using AutoCorrStage<Data, Product>::output;
       using AutoCorrStage<Data, Product>::bufferCapacity;

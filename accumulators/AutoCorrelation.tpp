@@ -27,6 +27,18 @@ namespace Util
    }
 
    /*
+   * Clear accumulators and destroy descendant stages.
+   */
+   template <typename Data, typename Product>
+   void AutoCorrelation<Data, Product>::clear()
+   {
+      AutoCorrStage<Data, Product>::clear();
+      // Only this object remains, as after construction
+      descendants_.clear();
+      descendants_.append(this);
+   }
+
+   /*
    * Read parameters and initialize.
    */
    template <typename Data, typename Product>

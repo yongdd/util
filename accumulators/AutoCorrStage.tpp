@@ -112,6 +112,12 @@ namespace Util
          }
          buffer_.clear();
       }
+      // Destroy descendant stages, as documented (the child's
+      // destructor deletes its own descendants)
+      if (childPtr_) {
+         delete childPtr_;
+         childPtr_ = 0;
+      }
    }
 
    /*

@@ -165,7 +165,13 @@ namespace Util
    * Return the index of the bin for a value.
    */
    inline int Distribution::binIndex(double value) const
-   { return int( (value - min_)/binWidth_ ); }
+   {
+      // Rounding can give nBin_ for a value just below max_
+      int i = int( (value - min_)/binWidth_ );
+      if (i >= nBin_) i = nBin_ - 1;
+      if (i < 0) i = 0;
+      return i;
+   }
   
    /*
    * Get minimum value in range of histogram.
