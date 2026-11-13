@@ -5,6 +5,7 @@
 #include <test/UnitTestRunner.h>
 
 #include <util/accumulators/Distribution.h>
+#include <util/accumulators/IntDistribution.h>
 
 #include <cmath>
 #include <sstream>
@@ -57,10 +58,81 @@ public:
       }
    }
 
+   template <class T>
+   std::string histogramText(T& histogram)
+   {
+      std::ostringstream out;
+      histogram.output(out);
+      return out.str();
+   }
+
+   template <class T>
+   void checkAssignment(T& source, T& destination)
+   {
+      destination = source;
+      TEST_ASSERT(histogramText(destination) == histogramText(source));
+      T copy(source), fresh;
+      fresh = source;
+      source = source;
+      TEST_ASSERT(histogramText(copy) == histogramText(source));
+      TEST_ASSERT(histogramText(fresh) == histogramText(source));
+      // Continuing both histograms also checks copied normalization counts.
+      destination.sample(source.min());
+      source.sample(source.min());
+      TEST_ASSERT(histogramText(destination) == histogramText(source));
+   }
+
+   void testAssignment()
+   {
+      printMethod(TEST_FUNC);
+      Distribution source, same, smaller, larger;
+      source.setParam(0, 1, 4);
+      same.setParam(0, 1, 4);
+      smaller.setParam(-2, 2, 2);
+      larger.setParam(-3, 3, 8);
+      source.sample(.2);
+      source.sample(.7);
+      source.sample(2);
+      same.sample(.4);
+      checkAssignment(source, same);
+      checkAssignment(source, smaller);
+      checkAssignment(source, larger);
+      Distribution empty;
+      same = empty;
+      TEST_ASSERT(same.min() == 0 && same.max() == 0);
+      // Assignment to empty leaves it reusable, without retained allocation.
+      same.setParam(0, 1, 4);
+      checkAssignment(source, same);
+   }
+
+   void testIntegerAssignment()
+   {
+      printMethod(TEST_FUNC);
+      IntDistribution source, same, smaller, larger;
+      source.setParam(0, 3);
+      same.setParam(0, 3);
+      smaller.setParam(0, 1);
+      larger.setParam(-2, 5);
+      source.sample(0);
+      source.sample(2);
+      source.sample(4);
+      same.sample(1);
+      checkAssignment(source, same);
+      checkAssignment(source, smaller);
+      checkAssignment(source, larger);
+      IntDistribution empty;
+      same = empty;
+      TEST_ASSERT(same.min() == 0 && same.max() == 0);
+      same.setParam(0, 3);
+      checkAssignment(source, same);
+   }
+
 };
 
 TEST_BEGIN(CoreDistributionTest)
 TEST_ADD(CoreDistributionTest, testBinIndexBelowMax)
+TEST_ADD(CoreDistributionTest, testAssignment)
+TEST_ADD(CoreDistributionTest, testIntegerAssignment)
 TEST_END(CoreDistributionTest)
 
 #endif

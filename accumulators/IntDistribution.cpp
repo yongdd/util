@@ -72,20 +72,28 @@ namespace Util
          assert(other.nReject_ == 0);
       }
 
+      // Reuse equal-sized storage; replace it when the bin count changes.
+      if (histogram_.isAllocated() && histogram_.capacity() != other.nBin_) {
+         histogram_.deallocate();
+         min_ = 0;
+         max_ = 0;
+         nBin_ = 0;
+         nSample_ = 0;
+         nReject_ = 0;
+      }
+      if (other.nBin_ > 0 && !histogram_.isAllocated()) {
+         histogram_.allocate(other.nBin_);
+      }
+      for (int i = 0; i < other.nBin_; ++i) {
+         histogram_[i] = other.histogram_[i];
+      }
+
       // Assign primitive values
       min_      = other.min_;
       max_      = other.max_;
       nBin_     = other.nBin_;
       nSample_  = other.nSample_;
       nReject_  = other.nReject_;
-
-      // Allocate histogram if necessary
-      if (nBin_ > 0) {
-         histogram_.allocate(nBin_);
-         for (int i=0; i < nBin_; ++i) {
-            histogram_[i] = other.histogram_[i];
-         }
-      }
 
       return *this;
    }
