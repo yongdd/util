@@ -366,9 +366,10 @@ namespace Util
    inline double 
    MeanSqDispArray<int>::sqDiff(const int& data1, const int& data2) 
    {
-      int diff; 
-      diff = data1 - data2;
-      return double(diff*diff);
+      // Convert before both operations: either the subtraction or its
+      // square can exceed the integer range for valid integer samples.
+      double diff = double(data1) - double(data2);
+      return diff*diff;
    }
 
    /**

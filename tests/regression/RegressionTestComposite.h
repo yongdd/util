@@ -25,6 +25,8 @@
 
 #include "TextArchiveCharTest.h"
 
+#include "IntegerMeanSqDispTest.h"
+
 TEST_COMPOSITE_BEGIN(RegressionTestComposite)
 TEST_COMPOSITE_ADD_UNIT(CoreAverageTest);
 TEST_COMPOSITE_ADD_UNIT(CoreDSymmMatrixParamTest);
@@ -39,6 +41,7 @@ TEST_COMPOSITE_ADD_UNIT(RadialArchiveRoundTripTest);
 TEST_COMPOSITE_ADD_UNIT(RadialAssignmentOptionsTest);
 TEST_COMPOSITE_ADD_UNIT(ArchiveStringLengthTest);
 TEST_COMPOSITE_ADD_UNIT(TextArchiveCharTest);
+TEST_COMPOSITE_ADD_UNIT(IntegerMeanSqDispTest);
 TEST_COMPOSITE_END
 
 #endif
