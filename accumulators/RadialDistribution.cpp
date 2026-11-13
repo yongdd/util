@@ -80,7 +80,9 @@ namespace Util
    */
    void RadialDistribution::loadParameters(Serializable::IArchive &ar)
    {
-      min_ = 0.0;
+      // Distribution::serialize stores the fixed minimum before max.
+      ar & min_;
+      UTIL_CHECK(min_ == 0.0);
       loadParameter<double>(ar, "max",  max_);
       loadParameter<int>(ar, "nBin", nBin_);
       ar & nSample_;   
