@@ -223,6 +223,11 @@ namespace Util
       virtual void registerDescendant(AutoCorrStage<Data, Product>* ptr);
 
       /**
+      * Destroy descendant stages and reset any derived metadata.
+      */
+      virtual void clearDescendants();
+
+      /**
       * Serialize private data members, and descendants.
       *
       * \param ar      archive

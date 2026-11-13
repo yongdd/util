@@ -33,6 +33,15 @@ namespace Util
    void AutoCorrelation<Data, Product>::clear()
    {
       AutoCorrStage<Data, Product>::clear();
+   }
+
+   /*
+   * Destroy descendant stages and reset the registry for clear or load.
+   */
+   template <typename Data, typename Product>
+   void AutoCorrelation<Data, Product>::clearDescendants()
+   {
+      AutoCorrStage<Data, Product>::clearDescendants();
       // Only this object remains, as after construction
       descendants_.clear();
       descendants_.append(this);

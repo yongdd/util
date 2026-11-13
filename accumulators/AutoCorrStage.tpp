@@ -112,8 +112,15 @@ namespace Util
          }
          buffer_.clear();
       }
-      // Destroy descendant stages, as documented (the child's
-      // destructor deletes its own descendants)
+      clearDescendants();
+   }
+
+   /*
+   * Destroy descendant stages, whose destructors delete their children.
+   */
+   template <typename Data, typename Product>
+   void AutoCorrStage<Data, Product>::clearDescendants()
+   {
       if (childPtr_) {
          delete childPtr_;
          childPtr_ = 0;
@@ -192,6 +199,11 @@ namespace Util
    AutoCorrStage<Data, Product>::serializePrivate(Archive& ar,
                                           const unsigned int version)
    {
+      if (Archive::is_loading()) {
+         // The archive replaces the previous tree and its registered stages.
+         clearDescendants();
+      }
+
       // State of simple nonblock correlator
       ar & buffer_;
       ar & corr_;

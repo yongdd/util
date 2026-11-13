@@ -95,6 +95,11 @@ namespace Util
       */
       virtual void registerDescendant(AutoCorrStage<Data, Product>* ptr);
 
+      /**
+      * Destroy descendants and reset the registry to this root stage.
+      */
+      virtual void clearDescendants();
+
    private:
 
       // Pointers to descendant AutoCorrStage objects
