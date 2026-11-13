@@ -32,6 +32,7 @@ $(BLD_DIR)/%.o: $(SRC_DIR)/%.cpp
 
 # Rule to compile *.cc test programs in src/util/tests
 $(BLD_DIR)/util/tests/%.o: $(SRC_DIR)/util/tests/%.cc 
+	@SDIR=$$(dirname "$@"); if [ ! -d "$$SDIR" ]; then mkdir -p "$$SDIR"; fi
 	$(CXX) $(CPPFLAGS) $(INCLUDES) $(CXXFLAGS) -c -o $@ $<
 ifdef MAKEDEP
 	$(MAKEDEP) $(MAKEDEP_CMD) $(MAKEDEP_ARGS) $<
