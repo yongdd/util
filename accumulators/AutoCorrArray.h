@@ -103,6 +103,9 @@ namespace Util
       /**
       * Set actual number of sequences in ensemble.
       *
+      * Changing the number clears all samples and histories. Setting the
+      * current number again leaves the accumulated data unchanged.
+      *
       * \pre readParam() or setParam() must have been called previously
       * \pre nEnsemble <= ensembleCapacity
       *
@@ -281,7 +284,10 @@ namespace Util
       if (nEnsemble > ensembleCapacity_) {
          UTIL_THROW("nEnsemble > ensembleCapacity_");      
       }
-      nEnsemble_ = nEnsemble;
+      if (nEnsemble != nEnsemble_) {
+         clear();
+         nEnsemble_ = nEnsemble;
+      }
    }
 
    /* 
