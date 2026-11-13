@@ -62,6 +62,21 @@ namespace Util
    {  return *filePtr_; }
 
    /*
+   * Consume exactly one record separator, never the next payload.
+   */
+   void TextFileIArchive::endRecord()
+   {
+      if (!filePtr_->good()) return;
+      int c;
+      do {
+         c = filePtr_->get();
+      } while (c == ' ' || c == '\t' || c == '\r');
+      if (c != '\n') {
+         filePtr_->setstate(std::ios::failbit);
+      }
+   }
+
+   /*
    * Load a std::string from TextFileIArchive.
    */
    template <>
@@ -71,16 +86,11 @@ namespace Util
       size_t size;
       ar.unpack(size);
       if (size > 0) {
-         static std::vector<char> charvec;
-         if (size > charvec.capacity()) {
-            charvec.reserve(size + 8);
-         }
-         // Read endline character after size
-         char   endline;
-         ar.unpack(endline);
-         // Read actual string.
-         ar.unpack(&charvec[0], size);
-         data = &charvec[0];
+         // unpack(size) has already consumed its record separator.
+         // Read the counted payload without treating whitespace as syntax.
+         data.resize(size);
+         ar.file().read(&data[0], size);
+         ar.endRecord();
       } else {
          data = "";
       }
