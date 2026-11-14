@@ -14,7 +14,12 @@ clean:
 	rm -f $(util_tests_regression_OBJS) $(util_tests_regression_OBJS:.o=.d)
 	rm -f $(BLD_DIR)/$(TEST) $(BLD_DIR)/util/tests/regression/MpiTest
 
-.PHONY: all clean
+# Portable fixture tests for the optional standalone util build.
+PYTHON ?= python3
+test-build-config:
+	$(PYTHON) $(SRC_DIR)/util/tests/regression/StandaloneBuildConfigTest.py
+
+.PHONY: all clean test-build-config
 
 -include $(util_tests_regression_OBJS:.o=.d)
 -include $(util_DEPS)

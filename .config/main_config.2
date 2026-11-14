@@ -1,3 +1,15 @@
+# Preprocessor flags for enabled standalone util features.
+# Compilation and dependency generation both consume CPPFLAGS.
+ifdef UTIL_MPI
+CPPFLAGS += -DUTIL_MPI
+endif
+ifdef UTIL_DEBUG
+CPPFLAGS += -DUTIL_DEBUG
+endif
+ifdef UTIL_CXX11
+CPPFLAGS += -DUTIL_CXX11
+endif
+
 #-----------------------------------------------------------------------
 # Choose values of CXX and CXX_FLAGS
 
