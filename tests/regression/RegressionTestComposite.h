@@ -13,6 +13,7 @@
 #include "CoreRationalTest.h"
 #include "CoreAutoCorrTest.h"
 #include "AutoCorrelationArchiveReuseTest.h"
+#include "AverageArchiveReuseTest.h"
 #include "CoreDistributionTest.h"
 #include "CoreRandomTest.h"
 #include "CoreParamEndOfFileTest.h"
@@ -62,6 +63,7 @@ TEST_COMPOSITE_ADD_UNIT(CoreAverageVarianceTest);
 TEST_COMPOSITE_ADD_UNIT(CoreRationalTest);
 TEST_COMPOSITE_ADD_UNIT(CoreAutoCorrTest);
 TEST_COMPOSITE_ADD_UNIT(AutoCorrelationArchiveReuseTest);
+TEST_COMPOSITE_ADD_UNIT(AverageArchiveReuseTest);
 TEST_COMPOSITE_ADD_UNIT(CoreDistributionTest);
 TEST_COMPOSITE_ADD_UNIT(CoreRandomTest);
 TEST_COMPOSITE_ADD_UNIT(CoreParamEndOfFileTest);
