@@ -37,6 +37,8 @@
 
 #include "RestartRootPathTest.h"
 
+#include "GStackAssignmentTest.h"
+
 TEST_COMPOSITE_BEGIN(RegressionTestComposite)
 TEST_COMPOSITE_ADD_UNIT(CoreAverageTest);
 TEST_COMPOSITE_ADD_UNIT(CoreDSymmMatrixParamTest);
@@ -59,6 +61,7 @@ TEST_COMPOSITE_ADD_UNIT(EnsembleResizeTest);
 TEST_COMPOSITE_ADD_UNIT(TextArchiveRawArrayTest);
 TEST_COMPOSITE_ADD_UNIT(CardinalBSplineConstantTest);
 TEST_COMPOSITE_ADD_UNIT(RestartRootPathTest);
+TEST_COMPOSITE_ADD_UNIT(GStackAssignmentTest);
 TEST_COMPOSITE_END
 
 #endif

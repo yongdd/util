@@ -8,7 +8,7 @@
 * Distributed under the terms of the GNU General Public License.
 */
 
-#include <util/containers/GStack.h>
+#include <util/misc/Memory.h>
 #include <util/global.h>
 
 namespace Util
@@ -221,10 +221,16 @@ namespace Util
       // Check for self assignment
       if (this == &other) return *this;
 
-      clear();
+      UTIL_CHECK(isAllocated());
+      UTIL_CHECK(other.isAllocated());
+      UTIL_CHECK(capacity_ >= other.size_);
       for (int i = 0; i < other.size_; ++i) {
-         append(other[i]);
+         ptrs_[i] = other.ptrs_[i];
       }
+      for (int i = other.size_; i < capacity_; ++i) {
+         ptrs_[i] = 0;
+      }
+      size_ = other.size_;
       return *this;
    }
 
