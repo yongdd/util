@@ -107,6 +107,17 @@ namespace Util
       */ 
       static std::string buffer();
 
+      #ifdef UTIL_MPI
+      /**
+      * Broadcast the lookahead buffer and match state from rank zero.
+      *
+      * All processors in communicator must call this method.
+      *
+      * \param communicator input communicator
+      */
+      static void bcast(MPI::Intracomm& communicator);
+      #endif
+
       /**
       * Is the input buffer clear?
       */

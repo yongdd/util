@@ -6,6 +6,9 @@
 */
 
 #include "Label.h"
+#ifdef UTIL_MPI
+#include <util/mpi/MpiSendRecv.h>
+#endif
 
 #include <iomanip>
 
@@ -52,6 +55,18 @@ namespace Util
          }
       }
    }
+
+   #ifdef UTIL_MPI
+   /*
+   * Synchronize the writable lookahead buffer and its state.
+   */
+   void Label::bcast(MPI::Intracomm& communicator)
+   {
+      Util::bcast<std::string>(communicator, buffer_, 0);
+      Util::bcast<bool>(communicator, isMatched_, 0);
+      isClear_ = buffer_.empty();
+   }
+   #endif
 
    // Non-static member functions
 
