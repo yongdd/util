@@ -66,9 +66,45 @@ public:
       TEST_ASSERT(!child && end && Util::Label::isClear());
       TEST_ASSERT(Util::Label::isMatched());
    }
+   void testOptionalEmptyAndWhitespace()
+   {
+      printMethod(TEST_FUNC);
+      for (const char* text : {"", " \t\n"}) {
+         Util::Label::clear();
+         FactoryLabelNode parent;
+         parent.setIoCommunicator(communicator());
+         FactoryLabelMaker factory;
+         std::istringstream in(mpiRank() == 0 ? text : "");
+         for (int repeat = 0; repeat < 2; ++repeat) {
+            std::string name("stale");
+            bool end = true;
+            FactoryLabelNode* child = factory.readObjectOptional(in,parent,name,end);
+            TEST_ASSERT(!child && name.empty() && !end);
+            TEST_ASSERT(Util::Label::isClear());
+         }
+      }
+   }
+   void testOptionalAfterLastObject()
+   {
+      printMethod(TEST_FUNC);
+      FactoryLabelNode parent;
+      parent.setIoCommunicator(communicator());
+      FactoryLabelMaker factory;
+      std::istringstream in(mpiRank() == 0 ? "Known{}" : "");
+      std::string name;
+      bool end = true;
+      FactoryLabelNode* child = factory.readObject(in,parent,name,end);
+      bool ok = child != 0;
+      delete child; TEST_ASSERT(ok);
+      child = factory.readObjectOptional(in,parent,name,end);
+      TEST_ASSERT(!child && name.empty() && !end);
+   }
+
 };
 TEST_BEGIN(MpiFactoryLabelTest)
 TEST_ADD(MpiFactoryLabelTest, testKnownObjectParameters)
 TEST_ADD(MpiFactoryLabelTest, testOptionalLookaheadAndClosingLabel)
+TEST_ADD(MpiFactoryLabelTest, testOptionalEmptyAndWhitespace)
+TEST_ADD(MpiFactoryLabelTest, testOptionalAfterLastObject)
 TEST_END(MpiFactoryLabelTest)
 #endif
