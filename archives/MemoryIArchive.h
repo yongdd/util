@@ -15,6 +15,7 @@
 #include <util/space/IntVector.h>
 
 #include <complex>
+#include <cstring>
 #include <string>
 #include <vector>
 
@@ -310,10 +311,9 @@ namespace Util
       if (cursor_ + sizeof(data) > end_) {
          UTIL_THROW("Attempted read past end of packed block");
       }
-      T* ptr = (T *)cursor_;
-      data = *ptr;
-      ++ptr;
-      cursor_ = (Byte *)ptr;
+      // Read bytes without treating the packed cursor as an aligned T*.
+      std::memcpy(&data, cursor_, sizeof(T));
+      cursor_ += sizeof(T);
    }
 
    /*
@@ -325,12 +325,10 @@ namespace Util
       if (cursor_ + n*sizeof(T) > end_) {
          UTIL_THROW("Attempted read past end of data");
       }
-      T* ptr = (T *)cursor_;
       for (int i=0; i < n; ++i) {
-         array[i] = *ptr;
-         ++ptr;
+         std::memcpy(&array[i], cursor_, sizeof(T));
+         cursor_ += sizeof(T);
       }
-      cursor_ = (Byte *)ptr;
    }
 
    /*
@@ -343,14 +341,12 @@ namespace Util
          UTIL_THROW("Attempted read past end of data");
       }
       int i, j;
-      T* ptr = (T *)cursor_;
       for (i = 0; i < m; ++i) {
          for (j = 0; j < n; ++j) {
-            array[i*np + j] = *ptr;
-            ++ptr;
+            std::memcpy(&array[i*np + j], cursor_, sizeof(T));
+            cursor_ += sizeof(T);
          }
       }
-      cursor_ = (Byte *)ptr;
    }
 
    // Explicit specializations of serialize function
