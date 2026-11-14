@@ -260,7 +260,7 @@ namespace Util
       // Construct filename = outputPrefix_ + name
       std::string filename(rootPrefix_);
       if (hasDirectoryId_) {
-         filename = directoryIdPrefix_;
+         filename += directoryIdPrefix_;
       }
       filename += name;
       open(filename, out, mode);
