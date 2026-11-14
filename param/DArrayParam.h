@@ -178,7 +178,14 @@ namespace Util
    */
    template <class Type>
    void DArrayParam<Type>::bcastValue()
-   {  bcast<Type>(this->ioCommunicator(), *arrayPtr_, n(), 0); }
+   {
+      // Only the IO processor calls loadValue when loading an archive.
+      // Fresh arrays on the receiving processors need matching storage.
+      if (!arrayPtr_->isAllocated()) {
+         arrayPtr_->allocate(n());
+      }
+      bcast<Type>(this->ioCommunicator(), *arrayPtr_, n(), 0);
+   }
    #endif
 
 } 
