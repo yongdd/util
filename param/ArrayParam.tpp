@@ -142,7 +142,7 @@ namespace Util
 
          Label space("");
          int i;
-         if (hasBrackets_) {
+         if (hasBrackets_ || n_ == 0) {
             out << indent() << Parameter::label_ << std::endl;
          }
          for (i = 0; i < n_; ++i) {
