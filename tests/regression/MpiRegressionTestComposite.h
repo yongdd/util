@@ -4,8 +4,11 @@
 #include "MpiParamWrapperTest.h"
 #include "MpiFactoryLabelTest.h"
 
+#include "MpiMemoryMaximumTest.h"
+
 TEST_COMPOSITE_BEGIN(MpiRegressionTestComposite)
 TEST_COMPOSITE_ADD_UNIT(MpiParamWrapperTest);
 TEST_COMPOSITE_ADD_UNIT(MpiFactoryLabelTest);
+TEST_COMPOSITE_ADD_UNIT(MpiMemoryMaximumTest);
 TEST_COMPOSITE_END
 #endif
