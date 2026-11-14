@@ -31,6 +31,8 @@
 #include "IntegerMeanSqDispTest.h"
 #include "EnsembleResizeTest.h"
 
+#include "TextArchiveRawArrayTest.h"
+
 TEST_COMPOSITE_BEGIN(RegressionTestComposite)
 TEST_COMPOSITE_ADD_UNIT(CoreAverageTest);
 TEST_COMPOSITE_ADD_UNIT(CoreDSymmMatrixParamTest);
@@ -50,6 +52,7 @@ TEST_COMPOSITE_ADD_UNIT(ArchiveStringLengthTest);
 TEST_COMPOSITE_ADD_UNIT(TextArchiveCharTest);
 TEST_COMPOSITE_ADD_UNIT(IntegerMeanSqDispTest);
 TEST_COMPOSITE_ADD_UNIT(EnsembleResizeTest);
+TEST_COMPOSITE_ADD_UNIT(TextArchiveRawArrayTest);
 TEST_COMPOSITE_END
 
 #endif

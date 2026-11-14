@@ -289,7 +289,30 @@ namespace Util
    template <>
    inline void TextFileIArchive::unpack(char* array, int n)
    {
-      filePtr_->get(array, n+1,'\0');
+      for (int i = 0; i < n; ++i) {
+         filePtr_->get(array[i]);
+         // The writer emits two spaces after each character, including
+         // characters that are themselves whitespace or NUL.
+         for (int j = 0; j < 2; ++j) {
+            if (filePtr_->get() != ' ') {
+               filePtr_->setstate(std::ios::failbit);
+               return;
+            }
+         }
+      }
+      endRecord();
+   }
+
+   /*
+   * Load rows of characters using the same framing as a packed 1D array.
+   */
+   template <>
+   inline void TextFileIArchive::unpack(char* array, int m, int n, int np)
+   {
+      for (int i = 0; i < m; ++i) {
+         unpack(array + i*np, n);
+         if (filePtr_->fail()) return;
+      }
    }
 
    // Explicit serialize functions for primitive types
