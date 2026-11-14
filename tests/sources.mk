@@ -1,4 +1,5 @@
-util_tests_=util/tests/Test.cc
+util_tests_=util/tests/Test.cc \
+            util/tests/regression/GridArrayHeaderTest.cc
 
 util_tests_SRCS=\
      $(addprefix $(SRC_DIR)/, $(util_tests_))
