@@ -27,15 +27,6 @@ namespace Util
    }
 
    /*
-   * Clear accumulators and destroy descendant stages.
-   */
-   template <typename Data, typename Product>
-   void AutoCorrelation<Data, Product>::clear()
-   {
-      AutoCorrStage<Data, Product>::clear();
-   }
-
-   /*
    * Destroy descendant stages and reset the registry for clear or load.
    */
    template <typename Data, typename Product>
