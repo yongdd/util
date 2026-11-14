@@ -402,8 +402,11 @@ namespace Util
       if (a.num_ == 0) {
          UTIL_THROW("Attempt to divide by zero Rational"); 
       }
-      num_ = num_*a.den_;
-      den_ = den_*a.num_;
+      // The divisor may be this same object.
+      const int numerator = num_*a.den_;
+      const int denominator = den_*a.num_;
+      num_ = numerator;
+      den_ = denominator;
       reduce();
       return *this;
    }
