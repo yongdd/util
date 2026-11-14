@@ -312,7 +312,10 @@ namespace Util
          UTIL_THROW("Attempted read past end of packed block");
       }
       // Read bytes without treating the packed cursor as an aligned T*.
-      std::memcpy(&data, cursor_, sizeof(T));
+      // The bytes were packed from a T object, so a bytewise copy into
+      // a class object is intended: the void* cast says so to the
+      // compiler (-Wclass-memaccess).
+      std::memcpy(static_cast<void*>(&data), cursor_, sizeof(T));
       cursor_ += sizeof(T);
    }
 
@@ -326,7 +329,7 @@ namespace Util
          UTIL_THROW("Attempted read past end of data");
       }
       for (int i=0; i < n; ++i) {
-         std::memcpy(&array[i], cursor_, sizeof(T));
+         std::memcpy(static_cast<void*>(&array[i]), cursor_, sizeof(T));
          cursor_ += sizeof(T);
       }
    }
@@ -343,7 +346,8 @@ namespace Util
       int i, j;
       for (i = 0; i < m; ++i) {
          for (j = 0; j < n; ++j) {
-            std::memcpy(&array[i*np + j], cursor_, sizeof(T));
+            std::memcpy(static_cast<void*>(&array[i*np + j]), cursor_,
+                        sizeof(T));
             cursor_ += sizeof(T);
          }
       }
