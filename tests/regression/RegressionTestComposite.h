@@ -53,6 +53,8 @@
 
 #include "EmptyArrayParamTest.h"
 
+#include "DecimalOutputModeTest.h"
+
 TEST_COMPOSITE_BEGIN(RegressionTestComposite)
 TEST_COMPOSITE_ADD_UNIT(CoreAverageTest);
 TEST_COMPOSITE_ADD_UNIT(CoreDSymmMatrixParamTest);
@@ -83,6 +85,7 @@ TEST_COMPOSITE_ADD_UNIT(RationalSelfDivisionTest);
 TEST_COMPOSITE_ADD_UNIT(VectorMemoryCountTest);
 TEST_COMPOSITE_ADD_UNIT(PolynomialEmptyCopyTest);
 TEST_COMPOSITE_ADD_UNIT(EmptyArrayParamTest);
+TEST_COMPOSITE_ADD_UNIT(UtilDecimalOutputModeTest);
 TEST_COMPOSITE_END
 
 #endif
