@@ -21,6 +21,7 @@
 #include "RadialArchiveRoundTripTest.h"
 
 #include "RadialAssignmentOptionsTest.h"
+#include "RadialShellVolumeTest.h"
 #include "MemoryArchiveAlignmentTest.h"
 
 #include "ArchiveStringLengthTest.h"
@@ -43,6 +44,7 @@ TEST_COMPOSITE_ADD_UNIT(CoreParamEndOfFileTest);
 TEST_COMPOSITE_ADD_UNIT(CoreParamBlankTest);
 TEST_COMPOSITE_ADD_UNIT(RadialArchiveRoundTripTest);
 TEST_COMPOSITE_ADD_UNIT(RadialAssignmentOptionsTest);
+TEST_COMPOSITE_ADD_UNIT(RadialShellVolumeTest);
 TEST_COMPOSITE_ADD_UNIT(MemoryArchiveAlignmentTest);
 TEST_COMPOSITE_ADD_UNIT(ArchiveStringLengthTest);
 TEST_COMPOSITE_ADD_UNIT(TextArchiveCharTest);
