@@ -47,6 +47,8 @@
 
 #include "RationalSelfDivisionTest.h"
 
+#include "VectorMemoryCountTest.h"
+
 TEST_COMPOSITE_BEGIN(RegressionTestComposite)
 TEST_COMPOSITE_ADD_UNIT(CoreAverageTest);
 TEST_COMPOSITE_ADD_UNIT(CoreDSymmMatrixParamTest);
@@ -74,6 +76,7 @@ TEST_COMPOSITE_ADD_UNIT(GStackClearTest);
 TEST_COMPOSITE_ADD_UNIT(ListIteratorFrontTest);
 TEST_COMPOSITE_ADD_UNIT(StreamLineEndTest);
 TEST_COMPOSITE_ADD_UNIT(RationalSelfDivisionTest);
+TEST_COMPOSITE_ADD_UNIT(VectorMemoryCountTest);
 TEST_COMPOSITE_END
 
 #endif
