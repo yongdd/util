@@ -136,6 +136,9 @@ namespace Util
       #ifdef UTIL_MPI
       /**
       * Commit associated MPI DataType.
+      *
+      * The MPI datatype for Data must already be available. Repeated calls
+      * reuse the previously committed datatype for this array type.
       */
       static void commitMpiType();
       #endif
@@ -146,6 +149,25 @@ namespace Util
       Data data_[Capacity];
 
    };
+
+   #ifdef UTIL_MPI
+   /**
+   * MPI datatype registration state for a fixed-size array.
+   */
+   template <typename Data, int Capacity>
+   class MpiTraits< FArray<Data, Capacity> >
+   {
+   public:
+      static MPI::Datatype type;
+      static bool hasType;
+   };
+
+   template <typename Data, int Capacity>
+   MPI::Datatype MpiTraits< FArray<Data, Capacity> >::type = MPI::BYTE;
+
+   template <typename Data, int Capacity>
+   bool MpiTraits< FArray<Data, Capacity> >::hasType = false;
+   #endif
 
    /*
    * Constructor.
@@ -292,13 +314,14 @@ namespace Util
    void FArray<Data, Capacity>::commitMpiType() 
    {
       if (!MpiTraits< FArray<Data, Capacity > >::hasType) {
+         UTIL_CHECK(MpiTraits<Data>::hasType);
          MpiStructBuilder       builder;
          FArray<Data, Capacity> object;
    
          builder.setBase(&object);
-         for (int i = 0; i < Capacity; ++i) {
-            builder.addMember(&(object.data_[i]), MpiTraits<Data>::type);
-         }
+         // The whole contiguous array occupies one builder entry, regardless
+         // of Capacity (the builder has a fixed number of entries).
+         builder.addMember(object.data_, MpiTraits<Data>::type, Capacity);
          builder.commit(MpiTraits< FArray<Data, Capacity> >::type);
          MpiTraits< FArray<Data, Capacity> >::hasType = true;
       }

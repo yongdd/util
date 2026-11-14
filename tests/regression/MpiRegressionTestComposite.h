@@ -8,10 +8,13 @@
 
 #include "MpiDArrayArchiveTest.h"
 
+#include "MpiFArrayTypeTest.h"
+
 TEST_COMPOSITE_BEGIN(MpiRegressionTestComposite)
 TEST_COMPOSITE_ADD_UNIT(MpiParamWrapperTest);
 TEST_COMPOSITE_ADD_UNIT(MpiFactoryLabelTest);
 TEST_COMPOSITE_ADD_UNIT(MpiMemoryMaximumTest);
 TEST_COMPOSITE_ADD_UNIT(MpiDArrayArchiveTest);
+TEST_COMPOSITE_ADD_UNIT(MpiFArrayTypeTest);
 TEST_COMPOSITE_END
 #endif
